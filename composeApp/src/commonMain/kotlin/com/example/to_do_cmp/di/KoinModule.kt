@@ -4,6 +4,7 @@ import com.example.to_do_cmp.data.FakeToDoRepository
 import com.example.to_do_cmp.data.ToDoRepository
 import com.example.to_do_cmp.navigation.Navigator
 import com.example.to_do_cmp.presentation.screen.home.HomeViewModel
+import com.example.to_do_cmp.presentation.screen.task.TaskViewModel
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
 import org.koin.core.module.dsl.singleOf
@@ -17,6 +18,7 @@ val koinModule = module {
     single<ToDoRepository> { FakeToDoRepository() }
 
     viewModelOf(::HomeViewModel)
+    viewModelOf(::TaskViewModel)
 }
 
 // config for Android for the moment

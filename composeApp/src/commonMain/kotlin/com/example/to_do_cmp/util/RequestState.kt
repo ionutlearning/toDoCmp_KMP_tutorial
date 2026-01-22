@@ -23,8 +23,8 @@ sealed class RequestState<out T> {
     data class Error(val message: String) : RequestState<Nothing>()
 
     fun isLoading(): Boolean = this is Loading
-    private fun isSuccess(): Boolean = this is Success
-    private fun isError(): Boolean = this is Error
+    fun isSuccess(): Boolean = this is Success
+    fun isError(): Boolean = this is Error
 
     fun getSuccessData() = (this as Success).data
     fun getSuccessDataOrNull() = if (this.isSuccess()) getSuccessData() else null
@@ -41,13 +41,14 @@ fun <T> RequestState<T>.DisplayResult(
     onError: (@Composable (String) -> Unit)? = null,
     onSuccess: @Composable (T) -> Unit,
     backgroundColor: Color? = null,
-) {
-    val transitionSpec: ContentTransform =
+    transitionSpec: ContentTransform =
         scaleIn(tween(durationMillis = 400)) + fadeIn(tween(durationMillis = 800)) togetherWith scaleOut(
             tween(durationMillis = 400)
         ) + fadeOut(
             tween(durationMillis = 800)
         )
+) {
+
     AnimatedContent(
         modifier = modifier
             .background(color = backgroundColor ?: Color.Unspecified),
