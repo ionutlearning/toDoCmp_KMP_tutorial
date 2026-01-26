@@ -1,4 +1,4 @@
-package com.example.to_do_cmp
+package com.example.to_do_cmp.androidAppx
 
 import android.app.Application
 import com.example.to_do_cmp.di.initializeKoin

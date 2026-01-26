@@ -3,18 +3,19 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.serialization)
-    alias(libs.plugins.sqlDelight)
+//    alias(libs.plugins.sqlDelight)
+    alias(libs.plugins.androidKmpLibrary)
 }
 
 kotlin {
-    androidTarget {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
-        }
+    androidLibrary {
+        compileSdk = 36
+        minSdk = 26
+        namespace = "com.example.to_do_cmp"
+        experimentalProperties["android.experimental.kmp.enableAndroidResources"] = true
     }
     
     listOf(
@@ -34,7 +35,7 @@ kotlin {
 
             implementation(libs.koin.android)
 
-            implementation(libs.sqldelight.android)
+//            implementation(libs.sqldelight.android)
 
             implementation(libs.navigation3.runtime)
             implementation(libs.navigation3.ui)
@@ -61,44 +62,13 @@ kotlin {
 
             implementation(libs.swipeable.kmp)
 
-            implementation(libs.sqldelight.coroutines)
+//            implementation(libs.sqldelight.coroutines)
         }
         iosMain.dependencies {
             implementation(libs.navigation2)
-            implementation(libs.sqldelight.ios)
+//            implementation(libs.sqldelight.ios)
         }
     }
-}
-
-android {
-    namespace = "com.example.to_do_cmp"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-
-    defaultConfig {
-        applicationId = "com.example.to_do_cmp"
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-}
-
-dependencies {
-    debugImplementation(compose.uiTooling)
 }
 
 //sqldelight {
