@@ -1,12 +1,9 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.serialization)
-//    alias(libs.plugins.sqlDelight)
+    alias(libs.plugins.sqlDelight)
     alias(libs.plugins.androidKmpLibrary)
 }
 
@@ -35,7 +32,7 @@ kotlin {
 
             implementation(libs.koin.android)
 
-//            implementation(libs.sqldelight.android)
+            implementation(libs.sqldelight.android)
 
             implementation(libs.navigation3.runtime)
             implementation(libs.navigation3.ui)
@@ -62,19 +59,19 @@ kotlin {
 
             implementation(libs.swipeable.kmp)
 
-//            implementation(libs.sqldelight.coroutines)
+            implementation(libs.sqldelight.coroutines)
         }
         iosMain.dependencies {
             implementation(libs.navigation2)
-//            implementation(libs.sqldelight.ios)
+            implementation(libs.sqldelight.ios)
         }
     }
 }
 
-//sqldelight {
-//    databases {
-//        create("TaskDatabase") {
-//            packageName.set("com.example.to_do_cmp")
-//        }
-//    }
-//}
+sqldelight {
+    databases {
+        create("TaskDatabase") {
+            packageName.set("com.example.to_do_cmp.database")
+        }
+    }
+}
