@@ -22,7 +22,7 @@ class HomeViewModel(
     val priorityFilter: StateFlow<Priority> = _priorityFilter
 
     val allTasks = combine(
-        repository.readAllTasks(),
+        repository.readAllTasks(context = viewModelScope.coroutineContext),
         _priorityFilter,
         _searchQuery
     ) { tasks, priority, query ->
