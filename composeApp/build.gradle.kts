@@ -1,3 +1,5 @@
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.composeMultiplatform)
@@ -14,7 +16,9 @@ kotlin {
         namespace = "com.example.to_do_cmp"
         experimentalProperties["android.experimental.kmp.enableAndroidResources"] = true
     }
-    
+
+    jvm()
+
     listOf(
         iosArm64(),
         iosSimulatorArm64()
@@ -64,6 +68,24 @@ kotlin {
         iosMain.dependencies {
             implementation(libs.navigation2)
             implementation(libs.sqldelight.ios)
+        }
+        jvmMain.dependencies {
+            implementation(libs.navigation2)
+            implementation(libs.sqldelight.driver)
+            implementation(libs.kotlinx.coroutines.swing)
+            implementation(libs.kotlinx.coroutines.test)
+        }
+    }
+}
+
+compose.desktop {
+    application {
+        mainClass = "com.example.to_do_cmp.MainKt"
+
+        nativeDistributions {
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+            packageName = "com.example.to_do_cmp"
+            packageVersion = "1.0.0"
         }
     }
 }
